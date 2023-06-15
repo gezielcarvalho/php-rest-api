@@ -35,6 +35,40 @@ This is a simple REST API written in PHP. It is written from scratch without usi
 }
 ```
 
+## Endpoints
+
+### User
+
+#### Register
+
+```http
+POST /api/user/register
+```
+
+##### Request
+
+```json
+{
+  "name": "John Doe",
+  "email": "john@email.com",
+  "password": "password"
+}
+```
+
+##### Response
+
+```json
+{
+  "success": true,
+  "status": 200,
+  "message": "User registered successfully",
+  "data": {
+    "name": "John Doe",
+    "email": "john@email.com"
+  }
+}
+```
+
 # Reference
 
 1. https://medium.com/@bojanmajed/standard-json-api-response-format-c6c1aabcaa6d
