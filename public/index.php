@@ -1,5 +1,6 @@
 <?php
 use Core\Router;
+use Core\Config;
 
 spl_autoload_register(function ($class) {
     $root = dirname(__DIR__);
@@ -8,6 +9,8 @@ spl_autoload_register(function ($class) {
         require $root . "/" . str_replace("\\", "/", $class) . ".php";
     }
 });
+
+(new Config(__DIR__ . '/.env'))->load();
 
 /**
  * Routing 
