@@ -19,8 +19,8 @@ $router->add('/', ['controller' => 'Home', 'action' => 'index', 'request' => 'GE
 $router->add('/users', ['controller' => 'App\Controllers\UserController', 'action' => 'index', 'request' => 'GET']); // METHOD GET
 $router->add('/users', ['controller' => 'App\Controllers\UserController', 'action' => 'show', 'request' => 'GET', 'args' => ['id']]); // METHOD GET
 $router->add('/users', ['controller' => 'App\Controllers\UserController', 'action' => 'store', 'request' => 'POST']); // METHOD POST
-$router->add('/users', ['controller' => 'App\Controllers\UserController', 'action' => 'update', 'request' => 'PUT']); // METHOD PUT
-$router->add('/users', ['controller' => 'App\Controllers\UserController', 'action' => 'destroy', 'request' => 'DELETE']); // METHOD DELETE
+$router->add('/users', ['controller' => 'App\Controllers\UserController', 'action' => 'update', 'request' => 'PUT', 'args' => ['id']]); // METHOD PUT
+$router->add('/users', ['controller' => 'App\Controllers\UserController', 'action' => 'destroy', 'request' => 'DELETE', 'args' => ['id']]); // METHOD DELETE
 
 
 // Get route from external URL
