@@ -5,7 +5,7 @@ namespace Core;
 use Core\View;
 
 class Controller {
-    public function decodePostFromJSON(){
+    protected function decodePostFromJSON(){
         $_POST = json_decode(file_get_contents("php://input"), true);
         if (empty($_POST)) {
             $results["success"] = false;
@@ -25,5 +25,9 @@ class Controller {
             }
         }
         return $errors;
+    }
+
+    public static function view($view, $args = []){
+        View::render($view, $args);
     }
 }

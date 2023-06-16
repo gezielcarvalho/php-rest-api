@@ -25,10 +25,10 @@ This is a simple REST API written in PHP. It is written from scratch without usi
   "message": "Message",
   "error": "Error message if any",
   "data": {
-    "key": "value",
     "object": {
       "key": "value"
     },
+    "key": "value",
     "token": "token"
   }
 }
@@ -41,7 +41,7 @@ This is a simple REST API written in PHP. It is written from scratch without usi
 #### Register
 
 ```http
-POST /api/user/register
+POST /users/
 ```
 
 ##### Request

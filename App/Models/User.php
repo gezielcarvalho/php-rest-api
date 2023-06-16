@@ -122,7 +122,6 @@ class User extends Model
             }
         } catch (PDOException $e) {
             // prepare response
-            http_response_code(500);
             $results["success"] = false;
             $results["status"] = 500;
             $results["message"] = "Error: " . $e->getMessage();
@@ -168,23 +167,37 @@ class User extends Model
 
             // check if columns were provided
             if (count($columns) == 0) {
-                http_response_code(400);
-                exit();
+                $results['success'] = false;
+                $results['status'] = 400;
+                $results['message'] = 'Error: No valid columns provided for update';
+                $results['error'] = 'No valid columns provided for update';
+                return $results;
             }
             $stmt->execute($parameters);
             if ($stmt->rowCount() == 0) {
-                http_response_code(404);
-                $results = ['error' => 'Record not found'];
+                $results['success'] = false;
+                $results['status'] = 404;
+                $results['message'] = 'Error: Record not found';
+                $results['error'] = 'Record not found';
+                return $results;
             } else {           
                 // get the product
                 $stmt = $db->prepare('SELECT * FROM users WHERE id = :id');
                 $stmt->execute(['id' => $id]);
-                $results = $stmt->fetch(PDO::FETCH_ASSOC);
-                // delete password
-                unset($results['password']);
+                $results['success'] = true;
+                $results['status'] = 200;
+                $results['message'] = 'Record updated successfully';
+                $results['data']['user'] = $stmt->fetch(PDO::FETCH_ASSOC);
+                // if is set delete password
+                if (isset($results["data"]["user"]['password'])) {
+                    unset($results["data"]["user"]['password']);
+                }
             }
         } catch (PDOException $e) {
-            $results[] = $e->getMessage();
+            $results['success'] = false;
+            $results['status'] = 404;
+            $results['message'] = 'Error: ' . $e->getMessage();
+            $results['error'] = $e->getMessage();
             return $results;
         }
         return $results;

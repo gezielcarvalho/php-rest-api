@@ -1,6 +1,7 @@
 <?php
 use Core\Router;
 use Core\Config;
+use Core\Controller;
 
 spl_autoload_register(function ($class) {
     $root = dirname(__DIR__);
@@ -25,7 +26,6 @@ $router->add('/users', ['controller' => 'App\Controllers\UserController', 'actio
 $router->add('/users', ['controller' => 'App\Controllers\UserController', 'action' => 'update', 'request' => 'PUT', 'args' => ['id']]); // METHOD PUT
 $router->add('/users', ['controller' => 'App\Controllers\UserController', 'action' => 'destroy', 'request' => 'DELETE', 'args' => ['id']]); // METHOD DELETE
 
-
 // Get route from external URL
 $url = $_SERVER['QUERY_STRING'];
 
@@ -33,7 +33,10 @@ $url = $_SERVER['QUERY_STRING'];
 if ($router->match($url)) {
     $router->dispatch(); 
 } else {
-    header("Content-Type: application/json");
-    http_response_code(404);
-    echo json_encode(["error" => "No route found from URL $url"]);
+    $results["success"] = false;
+    $results["status"] = 404;
+    $results["message"] = "Error: No route found from URL $url";
+    $results['error'] = "No route found from URL $url";
+    Controller::view('index.php', compact('results'));
+    exit();
 }
