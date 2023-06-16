@@ -59,10 +59,10 @@ class User extends Model
             $db = static::getDB();
             $stmt = $db->prepare('SELECT * FROM users WHERE id = :id');
             $stmt->execute(['id' => $id]);
-            http_response_code(200);
             // prepare response
-            $results["status"] = 200;
+            http_response_code(200);
             $results["success"] = true;
+            $results["status"] = 200;
             $results["message"] = "Record found";
             $results["data"]["user"] = $stmt->fetch(PDO::FETCH_ASSOC);
             // if is set delete password
@@ -70,16 +70,21 @@ class User extends Model
                 unset($results["data"]["user"]['password']);
             }
             if (!$results["data"]["user"]) {
-                http_response_code(404);
                 // prepare response
-                $results["status"] = 404;
+                http_response_code(404);
                 $results["success"] = false;
-                $results["message"] = "Record not found";
+                $results["status"] = 404;
+                $results["message"] = "Error: Record not found";
                 $results['error'] = 'Record not found';
                 unset($results["data"]);
             }
         } catch (PDOException $e) {
-            $results[] = $e->getMessage();
+            // prepare response
+            http_response_code(500);
+            $results["success"] = false;
+            $results["status"] = 500;
+            $results["message"] = "Error: " . $e->getMessage();
+            $results['error'] = $e->getMessage();
             return $results;
         } 
         return $results;
@@ -106,11 +111,22 @@ class User extends Model
             // get the product
             $stmt = $db->prepare('SELECT * FROM users WHERE id = :id');
             $stmt->execute(['id' => $lastId]);
-            $results = $stmt->fetch(PDO::FETCH_ASSOC);
-            // delete password
-            unset($results['password']);
+            http_response_code(201);
+            $results["success"] = true;
+            $results["status"] = 201;
+            $results["message"] = "Record created successfully";
+            $results["data"]["user"] = $stmt->fetch(PDO::FETCH_ASSOC);
+            // if is set delete password
+            if (isset($results["data"]["user"]['password'])) {
+                unset($results["data"]["user"]['password']);
+            }
         } catch (PDOException $e) {
-            $results[] = $e->getMessage();
+            // prepare response
+            http_response_code(500);
+            $results["success"] = false;
+            $results["status"] = 500;
+            $results["message"] = "Error: " . $e->getMessage();
+            $results['error'] = $e->getMessage();
             return $results;
         }
         return $results;
