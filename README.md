@@ -2,7 +2,7 @@
 
 ## Description
 
-This is a simple REST API written in PHP. It is written from scratch without using any framework. It uses MySQL as database and uses PDO for database operations. It is a simple API which can be used as a base for any PHP project that needs a REST API. It is developed following an MVC architecture.
+This is a simple REST API written in PHP for **instrucional purposes only**. It is written from scratch without using any framework and uses MySQL as database and uses PDO for database operations. It is developed following an MVC architecture.
 
 ## Installation
 
@@ -27,9 +27,7 @@ This is a simple REST API written in PHP. It is written from scratch without usi
   "data": {
     "object": {
       "key": "value"
-    },
-    "key": "value",
-    "token": "token"
+    }
   }
 }
 ```
@@ -38,19 +36,80 @@ This is a simple REST API written in PHP. It is written from scratch without usi
 
 ### User
 
-#### Register
+#### List users
 
 ```http
 POST /users/
+```
+
+##### Response
+
+```json
+{
+  "success": true,
+  "status": 200,
+  "message": "Records found",
+  "data": {
+    "users": [
+      {
+        "id": 1,
+        "fullname": "Johnny Doe",
+        "username": "johndoe",
+        "email": "john@email.com",
+        "address": "123 King St"
+      },
+      {
+        "id": 2,
+        "fullname": "Jane Doe",
+        "username": "janedoe",
+        "email": "jane@email.com",
+        "address": "124 Queen St"
+      }
+    ]
+  }
+}
+```
+
+#### Get user
+
+```http
+POST /users/{id}
+```
+
+##### Response
+
+```json
+{
+  "success": true,
+  "status": 200,
+  "message": "Record found",
+  "data": {
+    "user": {
+      "id": 1,
+      "fullname": "John Doe",
+      "username": "johndoe",
+      "email": "john@email.com",
+      "address": "123 King St"
+    }
+  }
+}
+```
+
+#### Create user
+
+```http
+POST /users/create
 ```
 
 ##### Request
 
 ```json
 {
-  "name": "John Doe",
-  "email": "john@email.com",
-  "password": "password"
+  "fullname": "Jack Doe",
+  "username": "jackdoe",
+  "email": "jack@email.com",
+  "password": "password",
+  "address": "125 King St"
 }
 ```
 
@@ -60,13 +119,64 @@ POST /users/
 {
   "success": true,
   "status": 200,
-  "message": "User registered successfully",
+  "message": "Record created",
   "data": {
-    "name": "John Doe",
-    "email": "john@email.com"
+    "user": {
+      "id": 3,
+      "fullname": "Jack Doe",
+      "username": "jackdoe",
+      "email": "jack@email.com",
+      "address": "125 King St"
+    }
   }
 }
 ```
+
+#### Update user
+
+```http
+PUT /users/{id}
+```
+
+##### Request
+
+```json
+{
+  "fullname": "Jack Doe",
+  "username": "jackdoe",
+  "email": "jack@email.com",
+  "address": "126 King St"
+}
+```
+
+##### Response
+
+```json
+{
+  "success": true,
+  "status": 200,
+  "message": "Record updated",
+  "data": {
+    "user": {
+      "id": 3,
+      "fullname": "Jack Doe",
+      "username": "jackdoe",
+      "email": "jack@email.com",
+      "address": "126 King St"
+    }
+  }
+}
+```
+
+#### Delete user
+
+```http
+DELETE /users/{id}
+```
+
+##### Response
+
+No JSON is returned in the response body. The status code is 204.
 
 # Reference
 
