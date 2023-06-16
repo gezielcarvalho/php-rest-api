@@ -36,4 +36,21 @@ abstract class Model
 
         return $db;
     }
+
+    /**
+     * Check if a column exists in a table
+     *
+     * @param string $column
+     * @param string $table
+     * @return boolean
+     */
+    protected static function isColumnExists($column, $table)
+    {
+        $db = static::getDB();
+        $query = "SHOW COLUMNS FROM $table LIKE '$column'";
+        $stmt = $db->prepare($query);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return ($result !== false);
+    }
 }

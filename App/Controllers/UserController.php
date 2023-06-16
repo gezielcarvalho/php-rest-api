@@ -3,47 +3,21 @@
 namespace App\Controllers;
 
 use Core\Controller;
-
+use App\Models\User;
+ 
 class UserController extends Controller {
-
+ 
     public function index(){
+        $results = User::getAll();
         header('Content-Type: application/json');
-        http_response_code(200);
-        echo json_encode([
-            'success' => true,
-            'status' => 200,
-            'message' => 'Hello World',
-            'data' => [
-                'users'=> [
-                    [
-                    'name' => 'John Doe',
-                    'age' => 25,
-                    'address' => 'New York'
-                ],[
-                    'name' => 'Jane Doe',
-                    'age' => 23,
-                    'address' => 'New York'
-                ]
-                ]
-            ]
-        ]);
+        echo json_encode($results);
     }
     
     public function show($id){
+        $results = User::getById($id);
         header('Content-Type: application/json');
         http_response_code(200);
-        echo json_encode([
-            'success' => true,
-            'status' => 200,
-            'message' => 'Record found',
-            'data' => [
-                'user'=> [
-                    'name' => 'John Doe',
-                    'age' => 25,
-                    'address' => 'New York'
-                ]
-            ]
-        ]);
+        echo json_encode($results);
     }
 
     public function store(){

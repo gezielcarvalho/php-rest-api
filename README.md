@@ -24,7 +24,6 @@ This is a simple REST API written in PHP. It is written from scratch without usi
   "status": "200/400/401/404/500",
   "message": "Message",
   "error": "Error message if any",
-  "error_code": 000,
   "data": {
     "key": "value",
     "object": {
