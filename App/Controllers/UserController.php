@@ -62,8 +62,8 @@ class UserController extends Controller {
     }
 
     public function destroy($id){
-        header('Content-Type: application/json');
-        http_response_code(204);
+        $results = User::delete($id);
+        View::render('index.php', compact('results'));
     }
 
 }

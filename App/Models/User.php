@@ -195,7 +195,7 @@ class User extends Model
             }
         } catch (PDOException $e) {
             $results['success'] = false;
-            $results['status'] = 404;
+            $results['status'] = 500;
             $results['message'] = 'Error: ' . $e->getMessage();
             $results['error'] = $e->getMessage();
             return $results;
@@ -217,16 +217,21 @@ class User extends Model
             $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
             // if acctected rows is 0, return error
             if ($stmt->rowCount() == 0) {
-                http_response_code(404);
-                $results = ['error' => 'Record not found'];
+                $results['success'] = false;
+                $results['status'] = 404;
+                $results['message'] = 'Error: Record not found';
+                $results['error'] = 'Record not found';
+                return $results;
             } else {
-                // set the header to 204
-                http_response_code(204);
+                $results['status'] = 204;
             }            
         } catch (PDOException $e) {
-            $results[] = $e->getMessage();
-        } finally {
+            $results['success'] = false;
+            $results['status'] = 500;
+            $results['message'] = 'Error: ' . $e->getMessage();
+            $results['error'] = $e->getMessage();
             return $results;
-        }
+        } 
+        return $results;
     }
 }
