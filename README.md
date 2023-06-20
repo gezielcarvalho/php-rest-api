@@ -2,7 +2,7 @@
 
 ## Description
 
-This is a simple REST API written in PHP for **instrucional purposes only**. It is written from scratch without using any framework and uses MySQL as database and uses PDO for database operations. It is developed following an MVC architecture.
+This is a simple REST API written in PHP for **instrucional purposes only**. It is written from scratch without using any framework, uses MySQL as database and  PDO for database operations. It is developed following an MVC architecture.
 
 ## Installation
 
@@ -39,7 +39,7 @@ This is a simple REST API written in PHP for **instrucional purposes only**. It 
 #### List users
 
 ```http
-POST /users/
+GET /users
 ```
 
 ##### Response
@@ -73,7 +73,7 @@ POST /users/
 #### Get user
 
 ```http
-POST /users/{id}
+GET /users/{id}
 ```
 
 ##### Response
