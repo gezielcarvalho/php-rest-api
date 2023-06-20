@@ -1,5 +1,5 @@
 <?php
-use Core\Router;
+use core\Router;
 use Core\Config;
 use Core\Controller;
 
