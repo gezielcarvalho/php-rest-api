@@ -98,6 +98,9 @@ class User extends Model
     public static function create(){
         try {
             $db = static::getDB();
+            // hash password before saving to database
+            $_POST['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
+            // insert new user record
             $stmt = $db->prepare('INSERT INTO users (fullname, username, email, password, address) VALUES (:fullname, :username, :email, :password, :address)');
             $stmt->execute([
                 'fullname' => $_POST['fullname'],
@@ -160,6 +163,10 @@ class User extends Model
             $updates = [];
             foreach ($columns as $column) {
                 $updates[] = $column . ' = :' . $column;
+            }
+            // if password is set, hash it
+            if (isset($parameters['password'])) {
+                $parameters['password'] = password_hash($parameters['password'], PASSWORD_DEFAULT);
             }
             $query .= implode(', ', $updates) . ' WHERE id = :id';
             $parameters['id'] = $id;
