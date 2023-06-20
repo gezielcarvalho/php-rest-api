@@ -19,7 +19,7 @@ spl_autoload_register(function ($class) {
 $router = new Router();
 
 // Add the routes
-$router->add('/', ['controller' => 'Home', 'action' => 'index', 'request' => 'GET']); // METHOD GET
+$router->add('/', ['controller' => 'App\Controllers\HomeController', 'action' => 'index', 'request' => 'GET']); // METHOD GET
 $router->add('/users', ['controller' => 'App\Controllers\UserController', 'action' => 'index', 'request' => 'GET']); // METHOD GET
 $router->add('/users', ['controller' => 'App\Controllers\UserController', 'action' => 'show', 'request' => 'GET', 'args' => ['id']]); // METHOD GET
 $router->add('/users', ['controller' => 'App\Controllers\UserController', 'action' => 'store', 'request' => 'POST']); // METHOD POST
