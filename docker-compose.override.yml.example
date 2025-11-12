@@ -1,0 +1,29 @@
+# Example docker-compose override file for local development
+# Copy this file to docker-compose.override.yml and customize as needed
+# This file allows you to override settings in docker-compose.yml without modifying the original
+
+version: '3.8'
+
+services:
+  web:
+    # Use different port for development
+    ports:
+      - "8080:80"
+    # Enable XDebug for debugging
+    # environment:
+    #   - XDEBUG_MODE=develop,debug
+    #   - XDEBUG_CONFIG=client_host=host.docker.internal
+
+  db:
+    # Use custom database credentials
+    # environment:
+    #   MYSQL_ROOT_PASSWORD: custom_password
+    #   MYSQL_DATABASE: custom_db_name
+    # Use different port if 3306 is already in use
+    # ports:
+    #   - "3307:3306"
+
+  phpmyadmin:
+    # Use different port if 8081 is already in use
+    # ports:
+    #   - "8082:80"

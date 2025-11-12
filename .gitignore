@@ -1,2 +1,18 @@
+# Environment files
 public/.env
 public/.htaccess
+
+# Docker volumes and overrides
+db-data/
+docker-compose.override.yml
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db

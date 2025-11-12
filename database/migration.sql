@@ -1,5 +1,5 @@
 -- Dumping database structure for database_for_rest
-CREATE DATABASE IF NOT EXISTS `database_for_rest` 
+CREATE DATABASE IF NOT EXISTS `database_for_rest`;
 USE `database_for_rest`;
 
 -- Dumping structure for table database_for_rest.users
